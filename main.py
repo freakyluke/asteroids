@@ -21,8 +21,11 @@ def main():
     dt=0
     af = AsteroidField()
     p1 = Player(SCREEN_WIDTH/2.0, SCREEN_HEIGHT/2.0)
+    score = 0
+    
     while 1==1:
         for event in pygame.event.get():
+        
             if event.type == pygame.QUIT:
                 return
         updatables.update(dt)
@@ -35,9 +38,11 @@ def main():
                 if asteroid.collides(shot)==True:
                     asteroid.split()
                     shot.kill()
+                    score +=1
         screen.fill("black")
         for drawable in drawables:
             drawable.draw(screen)
+            screen.blit(pygame.font.Font(None,50).render(str(f"Score: {score}"), 1 ,"white"),(0,0))
         pygame.display.flip()
         
         dt = clock.tick(60) /1000
